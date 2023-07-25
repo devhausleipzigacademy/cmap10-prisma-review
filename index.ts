@@ -5,6 +5,7 @@ dotenv.config()
 
 import { Prisma, PrismaClient } from "@prisma/client"
 import { handleErrors } from "./utils/errors"
+import { updatePost } from "./handlers/posts"
 const prisma = new PrismaClient()
 
 const app: Express = express()
@@ -62,7 +63,7 @@ app.get("/users/:username", async (req: Request, res: Response) => {
   res.status(200).json(user)
 })
 
-type PostBody = {
+export type PostBody = {
   title: string
   content: string
 }
@@ -107,20 +108,7 @@ app.delete("/posts/:id", async (req: Request, res: Response) => {
   }
 })
 
-app.patch("/posts/:id", async (req: Request, res: Response) => {
-  const postId = req.params.id
-  const body: Partial<PostBody> = req.body
-
-  const post = await prisma.post.update({
-    where: {
-      id: postId,
-    },
-    data: {
-      ...body,
-    },
-  })
-  res.status(201).json(post)
-})
+app.patch("/posts/:id", updatePost)
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`)

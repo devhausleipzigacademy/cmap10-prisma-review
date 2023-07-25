@@ -1,0 +1,28 @@
+GET http://localhost:8000/
+
+###
+
+POST http://localhost:8000/users
+Content-Type: application/json
+
+{
+  "username": "chirag"
+}
+
+###
+
+GET http://localhost:8000/users/chirag
+
+###
+
+POST http://localhost:8000/posts/chirag
+Content-Type: application/json
+
+{
+  "title": "Blog Post whatever 2",
+  "content": "lorem x 200"
+}
+
+###
+
+DELETE http://localhost:8000/posts/56343c18-1576-405c-95ee-7b8be1e32ad2

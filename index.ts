@@ -23,6 +23,7 @@ app.get("/", async (req: Request, res: Response) => {
     include: {
       posts: {
         select: {
+          id: true,
           title: true,
           content: true,
         },
@@ -104,6 +105,21 @@ app.delete("/posts/:id", async (req: Request, res: Response) => {
           .json({ cause: "database", message: "This Post doesn't exist" })
     }
   }
+})
+
+app.patch("/posts/:id", async (req: Request, res: Response) => {
+  const postId = req.params.id
+  const body: Partial<PostBody> = req.body
+
+  const post = await prisma.post.update({
+    where: {
+      id: postId,
+    },
+    data: {
+      ...body,
+    },
+  })
+  res.status(201).json(post)
 })
 
 app.listen(port, () => {

@@ -26,3 +26,13 @@ Content-Type: application/json
 ###
 
 DELETE http://localhost:8000/posts/56343c18-1576-405c-95ee-7b8be1e32ad2
+
+###
+
+PATCH http://localhost:8000/posts/0c2a36ee-e5df-4a7a-a546-520cfe8bae67
+Content-Type: application/json
+
+{
+  "title": "Hopefully Prisma increases Perf",
+  "content": "Prisma is a bit slow but OKis"
+}
